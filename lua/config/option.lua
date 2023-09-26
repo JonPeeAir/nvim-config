@@ -1,3 +1,5 @@
+vim.g.netrw_winsize = 30
+
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.colorcolumn = "80"
