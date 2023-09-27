@@ -1,7 +1,9 @@
-
+-- Oil.nvim keybinds
 vim.keymap.set('n', '<Leader>e', require("oil").toggle_float);
-vim.keymap.set('i', 'jj', '<esc>')
-vim.keymap.set('i', 'kk', '<esc>')
-vim.keymap.set('i', 'jk', '<esc>')
-vim.keymap.set('i', 'kj', '<esc>')
+
+-- Telescope keybinds
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files)
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep)
+vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers)
+vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)
 
