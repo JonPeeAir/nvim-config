@@ -29,9 +29,10 @@ return {
 
   {
     'stevearc/oil.nvim',
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("oil").setup()
-		end
+		end,
   },
 
 	{
@@ -48,6 +49,15 @@ return {
 				timeout = 250,
 				clear_empty_lines = false,
 			})
+		end,
+	},
+
+	{
+		'akinsho/bufferline.nvim', 
+		version = "*", 
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("bufferline").setup()
 		end,
 	}
 }
