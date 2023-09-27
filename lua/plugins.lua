@@ -1,7 +1,19 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter", 
-    build = ":TSUpdate"
+    build = ":TSUpdate",
+		main = "nvim-treesitter.configs",
+		opts = {
+			highlight = {
+				enable = true,
+			},
+			ensure_installed = { 
+				"lua",
+				"python",
+				"markdown",
+				"markdown_inline",
+			},
+		}
   },
 
   {
@@ -38,6 +50,4 @@ return {
 			})
 		end,
 	}
-
-  
 }
