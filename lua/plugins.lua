@@ -12,6 +12,8 @@ return {
 				"python",
 				"markdown",
 				"markdown_inline",
+				"javascript",
+				"typescript",
 			},
 		}
   },
@@ -47,7 +49,6 @@ return {
 			require("better_escape").setup({
 				mapping = {"jk", "jj", "kk", "kj"},
 				timeout = 250,
-				clear_empty_lines = false,
 			})
 		end,
 	},
@@ -59,5 +60,31 @@ return {
 		config = function()
 			require("bufferline").setup()
 		end,
+	},
+
+	{
+		'ThePrimeagen/vim-be-good'
+	},
+
+	{
+		"ggandor/leap.nvim",
+		config = function()
+			require('leap').add_default_mappings()
+		end,
+	},
+	
+	{
+  "folke/which-key.nvim",
+		event = "VeryLazy",
+		init = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 300
+			vim.keymap.del("n", "S")
+		end,
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		}
 	}
 }

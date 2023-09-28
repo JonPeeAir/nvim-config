@@ -8,10 +8,10 @@ vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers)
 vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)
 
 -- Buffer keybinds
-vim.keymap.set('n', '>', '<cmd>bn<cr>')
-vim.keymap.set('n', '<', '<cmd>bp<cr>')
+vim.keymap.set('n', ']b', '<cmd>bn<cr>')
+vim.keymap.set('n', '[b', '<cmd>bp<cr>')
 
 -- Other
-vim.keymap.set("n", "<c-j>", "<c-d>")
-vim.keymap.set("n", "<c-k>", "<c-u>")
+vim.keymap.set("n", "<c-j>", "15j")
+vim.keymap.set("n", "<c-k>", "15k")
 
