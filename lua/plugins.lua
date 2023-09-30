@@ -79,7 +79,6 @@ return {
 		init = function()
 			vim.o.timeout = true
 			vim.o.timeoutlen = 300
-			vim.keymap.del("n", "S")
 		end,
 		opts = {
 			-- your configuration comes here
@@ -88,13 +87,11 @@ return {
 		}
 	},
 
-	{
-		"lukas-reineke/indent-blankline.nvim"
+	{ 
+		"lukas-reineke/indent-blankline.nvim", 
+		main = "ibl", 
+		opts = {} 
 	},
-
-	{
-
-	}
 
 }
 
