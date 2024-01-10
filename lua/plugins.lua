@@ -108,8 +108,16 @@ return {
 		opts = {
 			-- your configuration comes here
 			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		}
+			-- refer to the configuration section at https://github.com/folke/which-key.nvim?tab=readme-ov-file#%EF%B8%8F-configuration
+		},
+		config = function ()
+			local wk = require("which-key")
+			wk.register({
+				["<leader>"] = {
+					f = { name = "Telescope"}
+				}
+			})
+		end,
 	},
 
 	{
@@ -160,10 +168,10 @@ return {
 				vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 
 				opts.desc = "See available code actions"
-				vim.keymap.set({"n", "v"}, "<leader>ca", vim.lsp.buf.code_action, opts)
+				vim.keymap.set({"n", "v"}, "ga", vim.lsp.buf.code_action, opts)
 
 				opts.desc = "Smart rename"
-				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+				vim.keymap.set("n", "gr", vim.lsp.buf.rename, opts)
 
 				opts.desc = "Show buffer diagnostics"
 				vim.keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts)
@@ -178,7 +186,7 @@ return {
 				vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 
 				opts.desc = "Show documentation for what is under cursor"
-				vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+				vim.keymap.set('n', 'gk', vim.lsp.buf.hover, opts)
 
 				opts.desc = "Restart LSP"
 				vim.keymap.set('n', '<leader>rs', "<cmd>LspRestart<CR>", opts)
@@ -211,6 +219,31 @@ return {
 			}
 
 			lspconfig.clangd.setup {
+				capabilities = capabilities,
+				on_attach = on_attach
+			}
+
+			lspconfig.tailwindcss.setup {
+				capabilities = capabilities,
+				on_attach = on_attach
+			}
+
+			lspconfig.angularls.setup {
+				capabilities = capabilities,
+				on_attach = on_attach
+			}
+
+			lspconfig.cssls.setup {
+				capabilities = capabilities,
+				on_attach = on_attach
+			}
+
+			lspconfig.emmet_ls.setup {
+				capabilities = capabilities,
+				on_attach = on_attach
+			}
+
+			lspconfig.glint.setup {
 				capabilities = capabilities,
 				on_attach = on_attach
 			}
