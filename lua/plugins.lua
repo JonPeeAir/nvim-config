@@ -3,6 +3,9 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
 		main = "nvim-treesitter.configs",
+		dependencies = {
+			{ "elgiano/nvim-treesitter-angular", branch = "topic/jsx-fix" }
+		},
 		opts = {
 			highlight = {
 				enable = true,
@@ -16,6 +19,7 @@ return {
 				"typescript",
 				"c",
 				"cpp",
+				"angular",
 			},
 		}
   },
