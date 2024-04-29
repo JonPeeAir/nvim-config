@@ -16,6 +16,7 @@ return {
 				"typescript",
 				"c",
 				"cpp",
+				"rust"
 			},
 		}
   },
@@ -207,6 +208,11 @@ return {
 			}
 
 			lspconfig.clangd.setup {
+				capabilities = capabilities,
+				on_attach = on_attach
+			}
+
+			lspconfig.rust_analyzer.setup {
 				capabilities = capabilities,
 				on_attach = on_attach
 			}
