@@ -14,6 +14,10 @@ return {
 				"markdown_inline",
 				"javascript",
 				"typescript",
+				"tsx",
+				"jsdoc",
+				"json",
+				"jsonc",
 				"c",
 				"cpp",
 				"rust"
@@ -195,6 +199,11 @@ return {
 				on_attach = on_attach
 			}
 
+			lspconfig.jsonls.setup {
+				capabilities = capabilities,
+				on_attach = on_attach
+			}
+
 			lspconfig.lua_ls.setup {
 				capabilities = capabilities,
 				on_attach = on_attach,
@@ -344,9 +353,11 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"tsserver",
+					"jsonls",
 					"lua_ls",
 					"pyright",
 					"clangd",
+					"rust_analyzer"
 				},
 				automatic_installation = true,
 			})
