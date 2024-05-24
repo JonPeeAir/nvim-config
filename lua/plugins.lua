@@ -20,9 +20,10 @@ return {
         "jsdoc",
         "json",
         "jsonc",
+        "yaml",
         "c",
         "cpp",
-        "rust"
+        "rust",
       },
     }
   },
@@ -133,6 +134,29 @@ return {
   },
 
   {
+    "williamboman/mason.nvim",
+    dependencies = {
+      "williamboman/mason-lspconfig.nvim",
+    },
+    config = function()
+      require("mason").setup()
+      require("mason-lspconfig").setup({
+        ensure_installed = {
+          "tsserver",
+          "tailwindcss",
+          "jsonls",
+          "lua_ls",
+          "pyright",
+          "clangd",
+          "rust_analyzer",
+          "yamlls"
+        },
+        automatic_installation = true,
+      })
+    end,
+  },
+
+  {
     "neovim/nvim-lspconfig",
     event = {"BufReadPre", "BufNewFile"},
     dependencies = {
@@ -224,6 +248,11 @@ return {
       }
 
       lspconfig.rust_analyzer.setup {
+        capabilities = capabilities,
+        on_attach = on_attach
+      }
+
+      lspconfig.yamlls.setup {
         capabilities = capabilities,
         on_attach = on_attach
       }
@@ -345,27 +374,6 @@ return {
     end,
   },
 
-  {
-    "williamboman/mason.nvim",
-    dependencies = {
-      "williamboman/mason-lspconfig.nvim",
-    },
-    config = function()
-      require("mason").setup()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "tsserver",
-          "tailwindcss",
-          "jsonls",
-          "lua_ls",
-          "pyright",
-          "clangd",
-          "rust_analyzer",
-        },
-        automatic_installation = true,
-      })
-    end,
-  },
 
   {
     "numToStr/Comment.nvim",
