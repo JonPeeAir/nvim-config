@@ -24,6 +24,7 @@ return {
         "c",
         "cpp",
         "rust",
+        "dockerfile",
       },
     }
   },
