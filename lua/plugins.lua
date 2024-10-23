@@ -30,26 +30,55 @@ return {
     }
   },
 
+  -- -- {
+  -- --   "rebelot/kanagawa.nvim",
+  -- --   config = function()
+  -- --     vim.cmd("colorscheme kanagawa")
+  -- --   end,
+  -- -- },
+
+  -- -- {
+  -- --   "morhetz/gruvbox",
+  -- --   config = function()
+  -- --     vim.cmd("colorscheme gruvbox")
+  -- --   end,
+  -- -- },
+
   -- {
-  --   "rebelot/kanagawa.nvim",
-  --   config = function()
-  --     vim.cmd("colorscheme kanagawa")
-  --   end,
+  --   'nyngwang/nvimgelion',
+  --   config = function ()
+  --     vim.cmd("colorscheme nvimgelion")
+  --   end
   -- },
 
   -- {
-  --   "morhetz/gruvbox",
-  --   config = function()
-  --     vim.cmd("colorscheme gruvbox")
-  --   end,
+  --   'catppuccin/nvim',
+  --   name = "catppuccin",
+  --   config = function ()
+  --     require("catppuccin").setup({
+  --       transparent_background = true, -- disables setting the background color.
+  --     })
+  --
+  --     vim.cmd("colorscheme catppuccin-mocha")
+  --   end
   -- },
 
   {
-    'nyngwang/nvimgelion',
+    'folke/tokyonight.nvim',
     config = function ()
-      vim.cmd("colorscheme nvimgelion")
+      require("tokyonight").setup({
+        style = "night",
+        transparent = true,
+        styles = {
+          sidebars = "transparent",
+          floats = "transparent",
+        },
+      })
+
+      vim.cmd("colorscheme tokyonight")
     end
   },
+
 
   {
     "nvim-tree/nvim-web-devicons"
