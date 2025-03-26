@@ -25,7 +25,8 @@ return {
         "cpp",
         "rust",
         "dockerfile",
-        "hurl"
+        "hurl",
+        "astro",
       },
     }
   },
@@ -214,14 +215,16 @@ return {
       require("mason").setup()
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "tsserver",
+          "ts_ls",
           "tailwindcss",
           "jsonls",
           "lua_ls",
           "pyright",
           "clangd",
           "rust_analyzer",
-          "yamlls"
+          "yamlls",
+          "denols",
+          "astro",
         },
         automatic_installation = true,
       })
@@ -292,9 +295,17 @@ return {
         on_attach = on_attach
       }
 
-      lspconfig.tsserver.setup {
+      lspconfig.ts_ls.setup {
         capabilities = capabilities,
-        on_attach = on_attach
+        on_attach = on_attach,
+        root_dir = lspconfig.util.root_pattern("package.json"),
+        single_file_support = false
+      }
+
+      lspconfig.denols.setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc")
       }
 
       lspconfig.jsonls.setup {
@@ -325,6 +336,11 @@ return {
       }
 
       lspconfig.yamlls.setup {
+        capabilities = capabilities,
+        on_attach = on_attach
+      }
+
+      lspconfig.astro.setup {
         capabilities = capabilities,
         on_attach = on_attach
       }
@@ -456,6 +472,103 @@ return {
       vim.keymap.set('v', "<leader>/", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", {desc = "Toggle comment for selection"})
     end,
   },
+
+
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "rcarriga/nvim-dap-ui",
+      "mfussenegger/nvim-dap-python",
+      "theHamsta/nvim-dap-virtual-text",
+    },
+    config = function()
+      local dap = require("dap")
+      local dapui = require("dapui")
+      local dap_python = require("dap-python")
+
+      require("dapui").setup({})
+      require("nvim-dap-virtual-text").setup({
+        commented = true, -- Show virtual text alongside comment
+      })
+
+      dap_python.setup("python")
+
+      vim.fn.sign_define("DapBreakpoint", {
+        text = "",
+        texthl = "DiagnosticSignError",
+        linehl = "",
+        numhl = "",
+      })
+
+      vim.fn.sign_define("DapBreakpointRejected", {
+        text = "", -- or "❌"
+        texthl = "DiagnosticSignError",
+        linehl = "",
+        numhl = "",
+      })
+
+      vim.fn.sign_define("DapStopped", {
+        text = "", -- or "→"
+        texthl = "DiagnosticSignWarn",
+        linehl = "Visual",
+        numhl = "DiagnosticSignWarn",
+      })
+
+      -- Automatically open/close DAP UI
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+
+      local opts = { noremap = true, silent = true }
+
+      -- Toggle breakpoint
+      opts.desc = "Toggle breakpoint"
+      vim.keymap.set("n", "<leader>bb", function()
+        dap.toggle_breakpoint()
+      end, opts)
+
+      -- Continue / Start
+      opts.desc = "Continue / Start"
+      vim.keymap.set("n", "<leader>bc", function()
+        dap.continue()
+      end, opts)
+
+      -- Step Over
+      opts.desc = "Step Over"
+      vim.keymap.set("n", "<leader>bo", function()
+        dap.step_over()
+      end, opts)
+
+      -- Step Into
+      opts.desc = "Step Into"
+      vim.keymap.set("n", "<leader>bi", function()
+        dap.step_into()
+      end, opts)
+
+      -- Step Out
+      opts.desc = "Step Out"
+      vim.keymap.set("n", "<leader>bO", function()
+        dap.step_out()
+      end, opts)
+
+      -- Keymap to terminate debugging
+      opts.desc = "Terminate Debugging"
+      vim.keymap.set("n", "<leader>bq", function()
+	      require("dap").terminate()
+      end, opts)
+
+      -- Toggle DAP UI
+      opts.desc = "Toggle DAP UI"
+      vim.keymap.set("n", "<leader>bu", function()
+        dapui.toggle()
+      end, opts)
+    end,
+  },
+
+
+
+
 
 }
 
