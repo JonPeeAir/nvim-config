@@ -27,6 +27,7 @@ return {
         "dockerfile",
         "hurl",
         "astro",
+        "dart",
       },
     }
   },
@@ -215,7 +216,7 @@ return {
       require("mason").setup()
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "ts_ls",
+          "tsserver",
           "tailwindcss",
           "jsonls",
           "lua_ls",
@@ -295,7 +296,7 @@ return {
         on_attach = on_attach
       }
 
-      lspconfig.ts_ls.setup {
+      lspconfig.tsserver.setup {
         capabilities = capabilities,
         on_attach = on_attach,
         root_dir = lspconfig.util.root_pattern("package.json"),
