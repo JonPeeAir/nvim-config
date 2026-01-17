@@ -97,7 +97,6 @@ return {
 
   {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.3',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
       local Telescope = require("telescope.builtin")
@@ -302,60 +301,76 @@ return {
       -- Set up lspconfig.
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      vim.lsp.enable('pyright', {
+      vim.lsp.config('pyright', {
         capabilities = capabilities,
         on_attach = on_attach
       })
+      vim.lsp.enable('pyright')
 
-      vim.lsp.enable('ts_ls', {
+      vim.lsp.config('ts_ls', {
         capabilities = capabilities,
         on_attach = on_attach,
         root_dir = lspconfig.util.root_pattern("package.json"),
         single_file_support = false
       })
+      vim.lsp.enable('ts_ls')
 
-      lspconfig.denols.setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
-        root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc")
-      }
-
-      lspconfig.jsonls.setup {
-        capabilities = capabilities,
-        on_attach = on_attach
-      }
-
-      lspconfig.lua_ls.setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { "vim" }
-            }
-          }
+      require("flutter-tools").setup {
+        lsp = {
+          on_attach = on_attach,
+          capabilities = capabilities, -- e.g. lsp_status capabilities
         }
       }
 
-      lspconfig.clangd.setup {
-        capabilities = capabilities,
-        on_attach = on_attach
-      }
 
-      lspconfig.rust_analyzer.setup {
-        capabilities = capabilities,
-        on_attach = on_attach
-      }
+      -- vim.lsp.config('dartls', {
+      --   capabilities = capabilities,
+      --   on_attach = on_attach,
+      -- })
+      -- vim.lsp.enable('dartls')
 
-      lspconfig.yamlls.setup {
-        capabilities = capabilities,
-        on_attach = on_attach
-      }
-
-      lspconfig.astro.setup {
-        capabilities = capabilities,
-        on_attach = on_attach
-      }
+      -- lspconfig.denols.setup {
+      --   capabilities = capabilities,
+      --   on_attach = on_attach,
+      --   root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc")
+      -- }
+      --
+      -- lspconfig.jsonls.setup {
+      --   capabilities = capabilities,
+      --   on_attach = on_attach
+      -- }
+      --
+      -- lspconfig.lua_ls.setup {
+      --   capabilities = capabilities,
+      --   on_attach = on_attach,
+      --   settings = {
+      --     Lua = {
+      --       diagnostics = {
+      --         globals = { "vim" }
+      --       }
+      --     }
+      --   }
+      -- }
+      --
+      -- lspconfig.clangd.setup {
+      --   capabilities = capabilities,
+      --   on_attach = on_attach
+      -- }
+      --
+      -- lspconfig.rust_analyzer.setup {
+      --   capabilities = capabilities,
+      --   on_attach = on_attach
+      -- }
+      --
+      -- lspconfig.yamlls.setup {
+      --   capabilities = capabilities,
+      --   on_attach = on_attach
+      -- }
+      --
+      -- lspconfig.astro.setup {
+      --   capabilities = capabilities,
+      --   on_attach = on_attach
+      -- }
 
     end,
   },
