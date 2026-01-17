@@ -302,17 +302,17 @@ return {
       -- Set up lspconfig.
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      lspconfig.pyright.setup {
+      vim.lsp.enable('pyright', {
         capabilities = capabilities,
         on_attach = on_attach
-      }
+      })
 
-      lspconfig.ts_ls.setup {
+      vim.lsp.enable('ts_ls', {
         capabilities = capabilities,
         on_attach = on_attach,
         root_dir = lspconfig.util.root_pattern("package.json"),
         single_file_support = false
-      }
+      })
 
       lspconfig.denols.setup {
         capabilities = capabilities,
