@@ -157,7 +157,7 @@ return {
   {
     'akinsho/bufferline.nvim',
     version = "*",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = "nvim-tree/nvim-web-devicons",
     config = function()
       require("bufferline").setup()
     end,
@@ -170,9 +170,8 @@ return {
   {
     "ggandor/leap.nvim",
     config = function()
-      require('leap').add_default_mappings()
-      vim.keymap.del({'x', 'o'}, 'x')
-      vim.keymap.del({'x', 'o'}, 'X')
+      vim.keymap.set({'n','x', 'o'}, 's', '<Plug>(leap)')
+      vim.keymap.set('n',            'S', '<Plug>(leap-from-window)')
     end,
   },
 
@@ -216,7 +215,7 @@ return {
       require("mason").setup()
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "tsserver",
+          "ts_ls",
           "tailwindcss",
           "jsonls",
           "lua_ls",
@@ -229,6 +228,18 @@ return {
         },
         automatic_installation = true,
       })
+    end,
+  },
+
+  {
+    'nvim-flutter/flutter-tools.nvim',
+    lazy = false,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'stevearc/dressing.nvim', -- optional for vim.ui.select
+    },
+    config = function()
+      require("flutter-tools").setup {}
     end,
   },
 
@@ -296,7 +307,7 @@ return {
         on_attach = on_attach
       }
 
-      lspconfig.tsserver.setup {
+      lspconfig.ts_ls.setup {
         capabilities = capabilities,
         on_attach = on_attach,
         root_dir = lspconfig.util.root_pattern("package.json"),
@@ -566,6 +577,8 @@ return {
       end, opts)
     end,
   },
+
+
 
 
 
